@@ -1,0 +1,46 @@
+
+<h1 class="mt-5">Listado de Pokémon</h1>
+<hr>
+
+<input type="text"
+        class="form-control mb-2"
+        placeholder="Buscar Pokémon"
+        #txtSearch
+        (keyup)="onSearchPokemon( txtSearch.value )" />
+
+
+<button class="btn btn-primary"
+        (click)="prevPage()">
+    Anteriores
+</button>
+&nbsp;
+<button class="btn btn-primary"
+        (click)="nextPage()"
+        [disabled]="(pokemons | filtro:page:search).length === 0">
+    Siguientes
+</button>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th [ngStyle]="{ 'width': '100px' }">#</th>
+            <th [ngStyle]="{ 'width': '150px' }">Nombre</th>
+            <th>Sprite</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let poke of pokemons | filtro:page:search"
+            [ngStyle]="{ 'height': '100px'}">
+            <td>{{ poke.id }}</td>
+            <td>{{ poke.name }}</td>
+            <td>
+                <img 
+                    [src]="poke.pic" 
+                    [alt]="poke.name"
+                    [ngStyle]="{ 'width': '75px' }"
+                />
+            </td>
+        </tr>
+    </tbody>
+</table>
